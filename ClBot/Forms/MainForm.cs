@@ -64,7 +64,11 @@ namespace ClBot
                     targets.Append("," + item.Key); 
                 }
             }
-            targets.Remove(0, 1);
+
+            if (targets.Length != 0)
+            {
+                targets.Remove(0, 1);
+            }
 
             return targets.ToString();
         }
