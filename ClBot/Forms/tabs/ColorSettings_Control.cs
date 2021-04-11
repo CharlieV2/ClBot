@@ -26,7 +26,7 @@ namespace ClBot.Forms.tabs
                 }
             }
 
-            knownColor_ComboBox.Text = Variables.themeColor;
+            knownColor_ComboBox.Text = Settings.themeColor;
         }
 
         Color selectedColor;

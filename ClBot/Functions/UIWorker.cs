@@ -21,7 +21,7 @@ namespace ClBot.Functions
             button.Font = new Font("Segoe UI", 10, FontStyle.Regular);
 
             button.Tag = key;
-            button.Text = Variables.members[key][0];
+            button.Text = Settings.members[key][0];
 
             button.Width = 183;
             button.Height = 30;
@@ -30,14 +30,14 @@ namespace ClBot.Functions
             
             void DisableMe(object sender, EventArgs e)
             {
-                if (Variables.members[key][1] == "ON")
+                if (Settings.members[key][1] == "ON")
                 {
-                    Variables.members[key][1] = "OFF";
+                    Settings.members[key][1] = "OFF";
                     button.BackColor = Color.FromArgb(226, 226, 226);
                 }
                 else
                 {
-                    Variables.members[key][1] = "ON";
+                    Settings.members[key][1] = "ON";
                     button.BackColor = Color.White;
                 }
             }

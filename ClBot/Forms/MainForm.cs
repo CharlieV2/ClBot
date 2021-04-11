@@ -41,12 +41,12 @@ namespace ClBot
             {
                 // проверка корректности настроек
                 
-                enableButtons = !(Variables.group == "" || Variables.faculty == "" || Variables.course == "" || Variables.vkgroupID == "" || Variables.token == "");
+                enableButtons = !(Settings.group == "" || Settings.faculty == "" || Settings.course == "" || Settings.vkgroupID == "" || Settings.token == "");
 
                 parse_Button.Enabled = enableButtons;
                 send_Button.Enabled = enableButtons;
 
-                this.Text = $"ClBot - {((parse_Button.Enabled && send_Button.Enabled) ? Variables.group : "требуется настройка")}";
+                this.Text = $"ClBot - {((parse_Button.Enabled && send_Button.Enabled) ? Settings.group : "требуется настройка")}";
 
                 ColorUpdate();
             }
@@ -57,7 +57,7 @@ namespace ClBot
         {
             StringBuilder targets = new StringBuilder();
             
-            foreach (var item in Variables.members)
+            foreach (var item in Settings.members)
             {
                 if (item.Value[1] == "ON")
                 {
@@ -86,13 +86,13 @@ namespace ClBot
             panel2.Width = 191;
             members_Panel.Width = 189;
 
-            if (Variables.members.Count > 7)
+            if (Settings.members.Count > 7)
             {
                 panel2.Width = 208;
                 members_Panel.Width = 206;
             }
 
-            foreach (var item in Variables.members)
+            foreach (var item in Settings.members)
             {
                 members_Panel.Controls.Add(UIWorker.NewButton(item.Key));
             }
@@ -126,11 +126,11 @@ namespace ClBot
 
         private void ColorUpdate()
         {
-            parse_Button.BackColor = Variables.color;
-            send_Button.BackColor = Variables.color;
+            parse_Button.BackColor = Settings.color;
+            send_Button.BackColor = Settings.color;
 
-            panel1.BackColor = Variables.color;
-            panel2.BackColor = Variables.color;
+            panel1.BackColor = Settings.color;
+            panel2.BackColor = Settings.color;
         }
     }
 }

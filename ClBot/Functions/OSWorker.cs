@@ -15,13 +15,13 @@ namespace ClBot.Functions
         public static void Settings_Save()
         {
             File.WriteAllText(MainPath + @"/Settings.txt",
-                              $"%group={Variables.group}" +
-                              $"%faculty={Variables.faculty}" +
-                              $"%course={Variables.course}" +
-                              $"%groupID={Variables.vkgroupID}" +
-                              $"%accessToken={Variables.token}" +
-                              $"%patternOutput={Variables.patternOutput}" +
-                              $"%themeColor={Variables.themeColor}");
+                              $"%group={Settings.group}" +
+                              $"%faculty={Settings.faculty}" +
+                              $"%course={Settings.course}" +
+                              $"%groupID={Settings.vkgroupID}" +
+                              $"%accessToken={Settings.token}" +
+                              $"%patternOutput={Settings.patternOutput}" +
+                              $"%themeColor={Settings.themeColor}");
         }
         public static void Settings_Load()
         {
@@ -39,26 +39,26 @@ namespace ClBot.Functions
                     switch (item.Split('=')[0])
                     {
                         case "group":
-                            Variables.group = item.Split('=')[1];
+                            Settings.group = item.Split('=')[1];
                             break;
                         case "faculty":
-                            Variables.faculty = item.Split('=')[1];
+                            Settings.faculty = item.Split('=')[1];
                             break;
                         case "course":
-                            Variables.course = item.Split('=')[1];
+                            Settings.course = item.Split('=')[1];
                             break;
                         case "groupID":
-                            Variables.vkgroupID = item.Split('=')[1];
+                            Settings.vkgroupID = item.Split('=')[1];
                             break;
                         case "accessToken":
-                            Variables.token = item.Split('=')[1];
+                            Settings.token = item.Split('=')[1];
                             break;
                         case "patternOutput":
-                            Variables.patternOutput = item.Split('=')[1];
+                            Settings.patternOutput = item.Split('=')[1];
                             break;
                         case "themeColor":
-                            Variables.themeColor = item.Split('=')[1];
-                            Variables.color = Color.FromName(item.Split('=')[1]);
+                            Settings.themeColor = item.Split('=')[1];
+                            Settings.color = Color.FromName(item.Split('=')[1]);
                             break;
                         default:
                             break;

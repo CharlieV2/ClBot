@@ -23,17 +23,17 @@ namespace ClBot.Forms
         }
         private void SaveSettings()
         {
-            Variables.group = mstuSettings_Control.group_TextBox.Text.Trim();
-            Variables.faculty = mstuSettings_Control.faculty_TextBox.Text.Trim();
-            Variables.course = mstuSettings_Control.course_TextBox.Text.Trim();
+            Settings.group = mstuSettings_Control.group_TextBox.Text.Trim();
+            Settings.faculty = mstuSettings_Control.faculty_TextBox.Text.Trim();
+            Settings.course = mstuSettings_Control.course_TextBox.Text.Trim();
 
-            Variables.vkgroupID = vkSettings_Control.groupID_TextBox.Text.Trim();
-            Variables.token = vkSettings_Control.token_TextBox.Text.Trim();
+            Settings.vkgroupID = vkSettings_Control.groupID_TextBox.Text.Trim();
+            Settings.token = vkSettings_Control.token_TextBox.Text.Trim();
 
-            Variables.patternOutput = formatSettings_Control.patternOutput_TextBox.Text;
-            Variables.date = formatSettings_Control.date_TextBox.Text.Trim();
+            Settings.patternOutput = formatSettings_Control.patternOutput_TextBox.Text;
+            Settings.date = formatSettings_Control.date_TextBox.Text.Trim();
 
-            Variables.themeColor = colorSettings_Control.knownColor_ComboBox.Text;
+            Settings.themeColor = colorSettings_Control.knownColor_ComboBox.Text;
 
             OSWorker.Settings_Save();
         }
@@ -48,15 +48,15 @@ namespace ClBot.Forms
         }
         private void ShowCurrentSettings()
         {
-            mstuSettings_Control.group_TextBox.Text = Variables.group;
-            mstuSettings_Control.faculty_TextBox.Text = Variables.faculty;
-            mstuSettings_Control.course_TextBox.Text = Variables.course;
+            mstuSettings_Control.group_TextBox.Text = Settings.group;
+            mstuSettings_Control.faculty_TextBox.Text = Settings.faculty;
+            mstuSettings_Control.course_TextBox.Text = Settings.course;
 
-            vkSettings_Control.groupID_TextBox.Text = Variables.vkgroupID;
-            vkSettings_Control.token_TextBox.Text = Variables.token;
+            vkSettings_Control.groupID_TextBox.Text = Settings.vkgroupID;
+            vkSettings_Control.token_TextBox.Text = Settings.token;
 
-            formatSettings_Control.date_TextBox.Text = Variables.date;
-            formatSettings_Control.patternOutput_TextBox.Text = Variables.patternOutput;
+            formatSettings_Control.date_TextBox.Text = Settings.date;
+            formatSettings_Control.patternOutput_TextBox.Text = Settings.patternOutput;
         }
 
 
@@ -125,7 +125,7 @@ namespace ClBot.Forms
 
         private void Button_Enable()
         {
-            CurrentTab.BackColor = Variables.color;
+            CurrentTab.BackColor = Settings.color;
             CurrentTab.ForeColor = Color.White;
             CurrentTab.BringToFront();
 
@@ -166,23 +166,23 @@ namespace ClBot.Forms
 
         private void ColorUpdate()
         {
-            colorSettings_Control.knownColor_ComboBox.Text = Variables.themeColor;
+            colorSettings_Control.knownColor_ComboBox.Text = Settings.themeColor;
 
-            Variables.color = Color.FromName(Variables.themeColor);
+            Settings.color = Color.FromName(Settings.themeColor);
 
-            CurrentTab.BackColor = Variables.color;
-            saveSettings_Button.BackColor = Variables.color;
+            CurrentTab.BackColor = Settings.color;
+            saveSettings_Button.BackColor = Settings.color;
 
-            mstu_Button.FlatAppearance.BorderColor = Variables.color;
-            vk_Button.FlatAppearance.BorderColor = Variables.color;
-            format_Button.FlatAppearance.BorderColor = Variables.color;
-            theme_Button.FlatAppearance.BorderColor = Variables.color;
+            mstu_Button.FlatAppearance.BorderColor = Settings.color;
+            vk_Button.FlatAppearance.BorderColor = Settings.color;
+            format_Button.FlatAppearance.BorderColor = Settings.color;
+            theme_Button.FlatAppearance.BorderColor = Settings.color;
 
-            MstuLink.ForeColor = Variables.color;
-            HelpLink.ForeColor = Variables.color;
+            MstuLink.ForeColor = Settings.color;
+            HelpLink.ForeColor = Settings.color;
 
-            panel2.BackColor = Variables.color;
-            formatSettings_Control.panel7.BackColor = Variables.color;
+            panel2.BackColor = Settings.color;
+            formatSettings_Control.panel7.BackColor = Settings.color;
         }
     }
 }

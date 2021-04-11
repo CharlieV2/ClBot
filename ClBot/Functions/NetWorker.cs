@@ -35,7 +35,7 @@ namespace ClBot.Functions
         {
             Random random = new Random();
 
-            webClient.DownloadString($"https://api.vk.com/method/messages.send?user_ids={targets}&message={message}&random_id={random.Next(10000000)}&access_token={Variables.token}&v=5.102");
+            webClient.DownloadString($"https://api.vk.com/method/messages.send?user_ids={targets}&message={message}&random_id={random.Next(10000000)}&access_token={Settings.token}&v=5.102");
         }
 
 
@@ -43,21 +43,21 @@ namespace ClBot.Functions
         {
             webClient.Encoding = Encoding.UTF8;
 
-            Variables.members.Clear();
+            Settings.members.Clear();
 
             // получение ID участников
             string ids;
-            string getIDs = (webClient.DownloadString($"https://api.vk.com/method/groups.getMembers?group_id={Variables.vkgroupID}&access_token={Variables.token}&v=5.102"));
+            string getIDs = (webClient.DownloadString($"https://api.vk.com/method/groups.getMembers?group_id={Settings.vkgroupID}&access_token={Settings.token}&v=5.102"));
             ids = String.Join(",", JsonConvert.DeserializeObject<GetIDs>(getIDs).response.items);
 
             // получение имени и фамилии каждого участника
-            string usersRow = (webClient.DownloadString($"https://api.vk.com/method/users.get?user_ids={ids}&access_token={Variables.token}&v=5.102"));
+            string usersRow = (webClient.DownloadString($"https://api.vk.com/method/users.get?user_ids={ids}&access_token={Settings.token}&v=5.102"));
             GetName users = JsonConvert.DeserializeObject<GetName>(usersRow);
 
             // заполнение списка участников
             foreach (var item in users.response)
             {
-                Variables.members.Add(item["id"], new List<string>{ item["first_name"] + " " + item["last_name"], "ON" });
+                Settings.members.Add(item["id"], new List<string>{ item["first_name"] + " " + item["last_name"], "ON" });
             }
         }
 
@@ -66,7 +66,7 @@ namespace ClBot.Functions
             StringBuilder FinalMessage = new StringBuilder();
             webClient.Encoding = Encoding.GetEncoding("windows-1251");
 
-            string HtmlPage = webClient.DownloadString(String.Format(@"http://www.mstu.edu.ru/study/timetable/schedule.php?key={0}&perstart={1}&perend={1}&perkind=%F7", FindKey(), Variables.date));
+            string HtmlPage = webClient.DownloadString(String.Format(@"http://www.mstu.edu.ru/study/timetable/schedule.php?key={0}&perstart={1}&perend={1}&perkind=%F7", FindKey(), Settings.date));
 
             string pattern = String.Format(@"<td>({0})</td>{0}<td>({0})<b>({0})</b>{0}<small>({0})</small>{0}</td>{0}<td>({0})</td>{0}<td>({0})</td>", "[^<]*?");
             foreach (Match match in Regex.Matches(HtmlPage, pattern))
@@ -79,7 +79,7 @@ namespace ClBot.Functions
                  * 5 - Кабинет
                  */
 
-                FinalMessage.Append(String.Format(Variables.patternOutput,
+                FinalMessage.Append(String.Format(Settings.patternOutput,
                                                   match.Groups[1].Value,
                                                   match.Groups[2].Value.ToLower(),
                                                   match.Groups[3].Value.ToUpper(),
@@ -97,7 +97,7 @@ namespace ClBot.Functions
         }
         private static string FindKey()
         {
-            string pattern = string.Format(@"<{0}key=({0})&perstart={0}>{1}</a>", "[^<]*?", Variables.group.ToLower());
+            string pattern = string.Format(@"<{0}key=({0})&perstart={0}>{1}</a>", "[^<]*?", Settings.group.ToLower());
             string key = Regex.Match(SceduleTable(), pattern).Groups[1].Value;
             return key;
         }
@@ -110,7 +110,7 @@ namespace ClBot.Functions
             WebRequest request = WebRequest.Create(url);
             request.Method = "POST";
 
-            switch (Variables.faculty.ToLower())
+            switch (Settings.faculty.ToLower())
             {
                 case "иат":
                     numInstitute = "4";
@@ -128,7 +128,7 @@ namespace ClBot.Functions
                     break;
             }
 
-            string data = $"mode=1&facs={numInstitute}&courses={Variables.course}";
+            string data = $"mode=1&facs={numInstitute}&courses={Settings.course}";
             byte[] byteArray = Encoding.GetEncoding("windows-1251").GetBytes(data);
 
             request.ContentType = "application/x-www-form-urlencoded";

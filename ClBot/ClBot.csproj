@@ -41,6 +41,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -91,7 +92,7 @@
     <Compile Include="Functions\NetWorker.cs" />
     <Compile Include="Functions\OSWorker.cs" />
     <Compile Include="Functions\UIWorker.cs" />
-    <Compile Include="Functions\Variables.cs" />
+    <Compile Include="Functions\Settings.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\MainForm.resx">
