@@ -9,24 +9,31 @@ using System.Threading.Tasks;
 namespace ClBot.Functions
 {
     [DataContract]
-    public static class Settings
+    public class Settings
     {
         // mstu
-        [DataMember] public static string group = "";
-        [DataMember] public static string faculty = "";
-        [DataMember] public static string course = "";
+        [DataMember] public string group = "";
+        [DataMember] public string faculty = "";
+        [DataMember] public string course = "";
 
         // vk
-        [DataMember] public static string vkgroupID = "";
-        [DataMember] public static string token = "";
+        [DataMember] public string vkgroupID = "";
+        [DataMember] public string token = "";
 
-        [DataMember] public static Dictionary<string, List<string>> members = new Dictionary<string, List<string>>();
+        [DataMember] public Dictionary<string, List<string>> members = new Dictionary<string, List<string>>();
 
         // program
-        [DataMember] public static string patternOutput = "{0}\n ->{2}<-\n{1} << {5} >>\n{3} {4}\n\n";
-        [DataMember] public static string date = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+        [DataMember] public string patternOutput = "{0}\n ->{2}<-\n{1} << {5} >>\n{3} {4}\n\n";
+        [DataMember] public string themeColor = "RoyalBlue";
 
-        [DataMember] public static string themeColor = "RoyalBlue";
-        [DataMember] public static Color color = Color.FromName(themeColor);
+        public string date = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+
+        public Color color
+        {
+            get
+            {
+                return Color.FromName(themeColor);
+            }
+        }
     }
 }

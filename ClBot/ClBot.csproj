@@ -90,7 +90,7 @@
       <DependentUpon>VKSettings_Control.cs</DependentUpon>
     </Compile>
     <Compile Include="Functions\NetWorker.cs" />
-    <Compile Include="Functions\OSWorker.cs" />
+    <Compile Include="Functions\Storage.cs" />
     <Compile Include="Functions\UIWorker.cs" />
     <Compile Include="Functions\Settings.cs" />
     <Compile Include="Program.cs" />

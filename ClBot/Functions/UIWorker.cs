@@ -10,7 +10,7 @@ namespace ClBot.Functions
 {
     public static class UIWorker
     {
-        public static Button NewButton(string key)
+        public static Button NewButton(string key, Dictionary<string, List<string>> members)
         {
             Button button = new Button();
 
@@ -21,7 +21,7 @@ namespace ClBot.Functions
             button.Font = new Font("Segoe UI", 10, FontStyle.Regular);
 
             button.Tag = key;
-            button.Text = Settings.members[key][0];
+            button.Text = members[key][0];
 
             button.Width = 183;
             button.Height = 30;
@@ -30,14 +30,14 @@ namespace ClBot.Functions
             
             void DisableMe(object sender, EventArgs e)
             {
-                if (Settings.members[key][1] == "ON")
+                if (members[key][1] == "ON")
                 {
-                    Settings.members[key][1] = "OFF";
+                    members[key][1] = "OFF";
                     button.BackColor = Color.FromArgb(226, 226, 226);
                 }
                 else
                 {
-                    Settings.members[key][1] = "ON";
+                    members[key][1] = "ON";
                     button.BackColor = Color.White;
                 }
             }

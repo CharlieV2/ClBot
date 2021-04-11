@@ -34,7 +34,6 @@
             this.MstuLink = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.saveSettings_Button = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tabControl_Panel = new System.Windows.Forms.Panel();
             this.mstu_Button = new System.Windows.Forms.Button();
@@ -112,23 +111,6 @@
             this.label1.Size = new System.Drawing.Size(275, 42);
             this.label1.TabIndex = 13;
             this.label1.Text = "Агрегатор расписания для\r\nстудентов МГТУ любого направления.\r\n";
-            // 
-            // saveSettings_Button
-            // 
-            this.saveSettings_Button.BackColor = System.Drawing.Color.RoyalBlue;
-            this.saveSettings_Button.FlatAppearance.BorderColor = System.Drawing.Color.RoyalBlue;
-            this.saveSettings_Button.FlatAppearance.BorderSize = 0;
-            this.saveSettings_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveSettings_Button.Font = new System.Drawing.Font("Segoe UI Light", 10F);
-            this.saveSettings_Button.ForeColor = System.Drawing.Color.White;
-            this.saveSettings_Button.Location = new System.Drawing.Point(469, 256);
-            this.saveSettings_Button.Name = "saveSettings_Button";
-            this.saveSettings_Button.Size = new System.Drawing.Size(96, 34);
-            this.saveSettings_Button.TabIndex = 20;
-            this.saveSettings_Button.TabStop = false;
-            this.saveSettings_Button.Text = "Сохранить";
-            this.saveSettings_Button.UseVisualStyleBackColor = false;
-            this.saveSettings_Button.Click += new System.EventHandler(this.saveSettings_Button_Click);
             // 
             // panel2
             // 
@@ -245,7 +227,6 @@
             this.Controls.Add(this.format_Button);
             this.Controls.Add(this.mstu_Button);
             this.Controls.Add(this.vk_Button);
-            this.Controls.Add(this.saveSettings_Button);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.back_Button);
             this.Controls.Add(this.label7);
@@ -276,7 +257,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox back_Button;
-        private System.Windows.Forms.Button saveSettings_Button;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel tabControl_Panel;
         private System.Windows.Forms.Button mstu_Button;

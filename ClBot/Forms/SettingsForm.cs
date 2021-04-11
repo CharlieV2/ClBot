@@ -15,6 +15,8 @@ namespace ClBot.Forms
 {
     public partial class SettingsForm : UserControl
     {
+        public Settings settings = new Settings();
+
         public SettingsForm()
         {
             InitializeComponent();
@@ -23,19 +25,17 @@ namespace ClBot.Forms
         }
         private void SaveSettings()
         {
-            Settings.group = mstuSettings_Control.group_TextBox.Text.Trim();
-            Settings.faculty = mstuSettings_Control.faculty_TextBox.Text.Trim();
-            Settings.course = mstuSettings_Control.course_TextBox.Text.Trim();
+            settings.group = mstuSettings_Control.group_TextBox.Text.Trim();
+            settings.faculty = mstuSettings_Control.faculty_TextBox.Text.Trim();
+            settings.course = mstuSettings_Control.course_TextBox.Text.Trim();
 
-            Settings.vkgroupID = vkSettings_Control.groupID_TextBox.Text.Trim();
-            Settings.token = vkSettings_Control.token_TextBox.Text.Trim();
+            settings.vkgroupID = vkSettings_Control.groupID_TextBox.Text.Trim();
+            settings.token = vkSettings_Control.token_TextBox.Text.Trim();
 
-            Settings.patternOutput = formatSettings_Control.patternOutput_TextBox.Text;
-            Settings.date = formatSettings_Control.date_TextBox.Text.Trim();
+            settings.patternOutput = formatSettings_Control.patternOutput_TextBox.Text;
+            settings.date = formatSettings_Control.date_TextBox.Text.Trim();
 
-            Settings.themeColor = colorSettings_Control.knownColor_ComboBox.Text;
-
-            OSWorker.Settings_Save();
+            settings.themeColor = colorSettings_Control.knownColor_ComboBox.Text;
         }
 
         private void Update(object sender, EventArgs e)
@@ -48,25 +48,20 @@ namespace ClBot.Forms
         }
         private void ShowCurrentSettings()
         {
-            mstuSettings_Control.group_TextBox.Text = Settings.group;
-            mstuSettings_Control.faculty_TextBox.Text = Settings.faculty;
-            mstuSettings_Control.course_TextBox.Text = Settings.course;
+            mstuSettings_Control.group_TextBox.Text = settings.group;
+            mstuSettings_Control.faculty_TextBox.Text = settings.faculty;
+            mstuSettings_Control.course_TextBox.Text = settings.course;
 
-            vkSettings_Control.groupID_TextBox.Text = Settings.vkgroupID;
-            vkSettings_Control.token_TextBox.Text = Settings.token;
+            vkSettings_Control.groupID_TextBox.Text = settings.vkgroupID;
+            vkSettings_Control.token_TextBox.Text = settings.token;
 
-            formatSettings_Control.date_TextBox.Text = Settings.date;
-            formatSettings_Control.patternOutput_TextBox.Text = Settings.patternOutput;
+            formatSettings_Control.date_TextBox.Text = settings.date;
+            formatSettings_Control.patternOutput_TextBox.Text = settings.patternOutput;
         }
 
 
 
         #region Buttons
-        private void saveSettings_Button_Click(object sender, EventArgs e)
-        {
-            SaveSettings();
-            ColorUpdate();
-        }
         private void Link_Click(object sender, EventArgs e)
         {
             if ((sender as Label).Text == "www.mstu.edu.ru")
@@ -76,6 +71,8 @@ namespace ClBot.Forms
         }
         private void back_Button_Click(object sender, EventArgs e)
         {
+            SaveSettings();
+            ColorUpdate();
             this.Visible = false;
         }
         private void back_Button_Enter(object sender, EventArgs e)
@@ -103,6 +100,7 @@ namespace ClBot.Forms
             vkSettings_Control.Location = new Point(0, 0);
             formatSettings_Control.Location = new Point(0, 0);
             colorSettings_Control.Location = new Point(0, 0);
+            colorSettings_Control.knownColor_ComboBox.Text = settings.themeColor;
 
             tabControl_Panel.Controls.Add(mstuSettings_Control);
             tabControl_Panel.Controls.Add(vkSettings_Control);
@@ -125,7 +123,7 @@ namespace ClBot.Forms
 
         private void Button_Enable()
         {
-            CurrentTab.BackColor = Settings.color;
+            CurrentTab.BackColor = settings.color;
             CurrentTab.ForeColor = Color.White;
             CurrentTab.BringToFront();
 
@@ -166,23 +164,20 @@ namespace ClBot.Forms
 
         private void ColorUpdate()
         {
-            colorSettings_Control.knownColor_ComboBox.Text = Settings.themeColor;
+            colorSettings_Control.knownColor_ComboBox.Text = settings.themeColor;
 
-            Settings.color = Color.FromName(Settings.themeColor);
+            CurrentTab.BackColor = settings.color;
 
-            CurrentTab.BackColor = Settings.color;
-            saveSettings_Button.BackColor = Settings.color;
+            mstu_Button.FlatAppearance.BorderColor = settings.color;
+            vk_Button.FlatAppearance.BorderColor = settings.color;
+            format_Button.FlatAppearance.BorderColor = settings.color;
+            theme_Button.FlatAppearance.BorderColor = settings.color;
 
-            mstu_Button.FlatAppearance.BorderColor = Settings.color;
-            vk_Button.FlatAppearance.BorderColor = Settings.color;
-            format_Button.FlatAppearance.BorderColor = Settings.color;
-            theme_Button.FlatAppearance.BorderColor = Settings.color;
+            MstuLink.ForeColor = settings.color;
+            HelpLink.ForeColor = settings.color;
 
-            MstuLink.ForeColor = Settings.color;
-            HelpLink.ForeColor = Settings.color;
-
-            panel2.BackColor = Settings.color;
-            formatSettings_Control.panel7.BackColor = Settings.color;
+            panel2.BackColor = settings.color;
+            formatSettings_Control.panel7.BackColor = settings.color;
         }
     }
 }

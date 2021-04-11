@@ -15,13 +15,17 @@ namespace ClBot
 {
     public partial class MainForm : Form
     {
+        Settings settings = new Settings();
         SettingsForm settingsForm = new SettingsForm();
         bool enableButtons = false;
 
         public MainForm()
         {
             InitializeComponent();
-            OSWorker.Settings_Load();
+
+            settings = Storage.Load();
+            settingsForm.settings = settings;
+
             CreateUserControls();
             UpdateSettings(null, null);
         }
@@ -40,15 +44,17 @@ namespace ClBot
             if (settingsForm.Visible == false)
             {
                 // проверка корректности настроек
-                
-                enableButtons = !(Settings.group == "" || Settings.faculty == "" || Settings.course == "" || Settings.vkgroupID == "" || Settings.token == "");
+                settings = settingsForm.settings;
+
+                enableButtons = !(settings.group == "" || settings.faculty == "" || settings.course == "" || settings.vkgroupID == "" || settings.token == "");
 
                 parse_Button.Enabled = enableButtons;
                 send_Button.Enabled = enableButtons;
 
-                this.Text = $"ClBot - {((parse_Button.Enabled && send_Button.Enabled) ? Settings.group : "требуется настройка")}";
+                this.Text = $"ClBot - {((parse_Button.Enabled && send_Button.Enabled) ? settings.group : "требуется настройка")}";
 
                 ColorUpdate();
+                Storage.Save(settings);
             }
         }
 
@@ -57,7 +63,7 @@ namespace ClBot
         {
             StringBuilder targets = new StringBuilder();
             
-            foreach (var item in Settings.members)
+            foreach (var item in settings.members)
             {
                 if (item.Value[1] == "ON")
                 {
@@ -76,32 +82,32 @@ namespace ClBot
 
         private void ParseMessage()
         {
-            message_RichText.Text = NetWorker.GetTable();
+            message_RichText.Text = NetWorker.GetTable(settings.patternOutput, settings.group, settings.date, settings.faculty, settings.course);
         }
         private void ParseMembers()
         {
-            NetWorker.GetMembers();
+            settings.members = NetWorker.GetMembers(settings.vkgroupID, settings.token);
 
             members_Panel.Controls.Clear();
             panel2.Width = 191;
             members_Panel.Width = 189;
 
-            if (Settings.members.Count > 7)
+            if (settings.members.Count > 7)
             {
                 panel2.Width = 208;
                 members_Panel.Width = 206;
             }
 
-            foreach (var item in Settings.members)
+            foreach (var item in settings.members)
             {
-                members_Panel.Controls.Add(UIWorker.NewButton(item.Key));
+                members_Panel.Controls.Add(UIWorker.NewButton(item.Key, settings.members));
             }
         }
 
         #region Buttons
         private void send_Button_Click(object sender, EventArgs e)
         {
-            NetWorker.SendMessage(GetTargets(), message_RichText.Text);
+            NetWorker.SendMessage(GetTargets(), message_RichText.Text, settings.token);
         }
         private void parse_Button_Click(object sender, EventArgs e)
         {
@@ -126,11 +132,11 @@ namespace ClBot
 
         private void ColorUpdate()
         {
-            parse_Button.BackColor = Settings.color;
-            send_Button.BackColor = Settings.color;
+            parse_Button.BackColor = settings.color;
+            send_Button.BackColor = settings.color;
 
-            panel1.BackColor = Settings.color;
-            panel2.BackColor = Settings.color;
+            panel1.BackColor = settings.color;
+            panel2.BackColor = settings.color;
         }
     }
 }
